@@ -21,6 +21,7 @@
     "bcrypt": "^2.0.1",
     "body-parser": "^1.18.3",
     "cookie-parser": "^1.4.3",
+    "ejs": "^2.6.1",
     "eslint": "^4.19.1",
     "eslint-config-airbnb-base": "^13.0.0",
     "eslint-plugin-import": "^2.13.0",
