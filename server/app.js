@@ -3,6 +3,7 @@ import cookieParser from 'cookie-parser';
 import express from 'express';
 import morgan from 'morgan';
 
+import Model from './models/Model';
 import Routes from './routes/Routes';
 
 const app = express();
@@ -17,8 +18,10 @@ app.use(json);
 app.use(morgan('combined'));
 app.use(cookieParser());
 
+Model();
 
-app.use('/', Routes);
+
+// app.use('/', Routes);
 app.use('*', (req, res) => res.render('error'));
 
 app.listen(port);

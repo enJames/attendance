@@ -10,9 +10,10 @@ if (process.env.NODE_ENV === 'production') {
     connectionString = process.env.DATABASE_URL;
     ssl = true;
 } else {
-    connectionString = process.env.DATABASE_URL_L0CAL;
+    connectionString = process.env.DATABASE_URL_LOCAL;
     ssl = false;
 }
+console.log(connectionString);
 
 const connectToPg = new Pool({ connectionString, ssl });
 
