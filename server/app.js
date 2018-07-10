@@ -21,7 +21,7 @@ app.use(cookieParser());
 Model();
 
 
-// app.use('/', Routes);
+app.use('/', Routes);
 app.use('*', (req, res) => res.render('error'));
 
 app.listen(port);
