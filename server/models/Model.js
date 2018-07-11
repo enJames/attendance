@@ -4,12 +4,14 @@ const Model = () => {
     connectToPg.query(
         `CREATE TABLE IF NOT EXISTS "LagosStaff" (
             "id" SERIAL PRIMARY KEY,
-            "staff_id" VARCHAR,
-            "last_name" VARCHAR,
-            "first_name" VARCHAR,
-            "middle_name" VARCHAR,
-            "mobile_number" VARCHAR,
-            "schedule_date" VARCHAR
+            "staffId" VARCHAR,
+            "lastName" VARCHAR,
+            "firstName" VARCHAR,
+            "middleName" VARCHAR,
+            "mobileNumber" VARCHAR,
+            "scheduleDate" VARCHAR,
+            "code" VARCHAR,
+            "status" VARCHAR
         )`
     )
         .then(tableData => console.log('LagosStaff table created successfully', tableData))
