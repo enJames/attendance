@@ -21,7 +21,7 @@ Routes.get('/', (req, res) => {
 
 // Login page
 Routes.get('/login', (req, res) => {
-    if (req.cookies.staff) {
+    if (req.cookies.staffId) {
         return res.redirect('/dashboard');
     }
     return res.render('login');
