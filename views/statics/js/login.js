@@ -38,7 +38,7 @@ $(document).ready(() => {
             if ($('#staffId').val().length === 0) {
                 return Functions.displayMessage('Please input your VLA staff ID', 'fail');
             }
-            data.staffId = $('#staffId').val();
+            data.staffId = $('#staffId').val().toUpperCase();
         }
 
         const dataToServer = {
