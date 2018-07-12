@@ -25,7 +25,7 @@ $(document).ready(() => {
         // activate spinner
         $('#spinner').css('opacity', '1');
 
-        const url = 'http://localhost:8000/login';
+        const url = 'https://vla-training.herokuapp.com/login';
 
         const data = {};
 

@@ -21,7 +21,7 @@ const Functions = {
             });
 
             // redirect
-            return location.replace('http://localhost:8000/dashboard');
+            return location.replace('https://vla-training.herokuapp.com/dashboard');
         }
 
         if (inputElement !== null) {

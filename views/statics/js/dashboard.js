@@ -5,7 +5,7 @@ $(document).ready(() => {
         // activate spinner
         $('#spinner').css('opacity', '1');
 
-        const url = 'http://localhost:8000/dashboard';
+        const url = 'https://vla-training.herokuapp.com/dashboard';
 
         const data = {};
 
@@ -33,7 +33,7 @@ $(document).ready(() => {
     });
 
     $('#logout').click(() => {
-        const url = 'http://localhost:8000/logout';
+        const url = 'https://vla-training.herokuapp.com/logout';
 
         const dataToServer = {
             method: 'POST',
@@ -44,7 +44,7 @@ $(document).ready(() => {
             .then(res => res.json())
             .then((res) => {
                 if (res.status === 'success') {
-                    return location.replace('http://localhost:8000/login');
+                    return location.replace('https://vla-training.herokuapp.com/login');
                 }
             });
     });
