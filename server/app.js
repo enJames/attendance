@@ -17,6 +17,7 @@ app.use(urlencoded);
 app.use(json);
 app.use(morgan('combined'));
 app.use(cookieParser());
+app.use(express.static('views/statics'));
 
 Model();
 

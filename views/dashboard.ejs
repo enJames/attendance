@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <link rel="shortcut icon" href="/img/logoc.png">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+    	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
+        <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+        <link rel="stylesheet" href="/css/normalize.css">
+        <link rel="stylesheet" href="/css/animate.css">
+        <link rel="stylesheet" href="/css/master.css">
+        <link rel="stylesheet" href="/css/dashboard.css">
+        <title>Training 2018 — Vic Lawrence & Associates Limited</title>
+    </head>
+    <body>
+        <nav class="navbar navbar-expand navbar-light navbar-custom">
+            <a class="navbar-brand blogo" href="/">
+                <img class="img-fluid" src="/img/logoc.png" alt="Logo">
+            </a>
+            <div class="collapse navbar-collapse">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item" id="logout">
+                        Logout
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        <div class="dash-content">
+            <div class="staff-details">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-6 mb-4">
+                            <div class="staff-details-item taff-id text-center">
+                                <span class="details-sub-head">Staff ID:</span>
+                                <span><%= staffId %></span>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 mb-4">
+                            <div class="staff-details-item staff-name text-center">
+                                <span class="details-sub-head">Name:</span>
+                                <span><%= lastName %> <%= firstName %> <%= (!!middleName)?middleName:'' %></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row text-center">
+                        <div class="col-sm-6 mb-4">
+                            <div class="staff-details-item taff-id text-center">
+                                <span class="details-sub-head">Scheduled:</span>
+                                <span><%= scheduleDate %></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="report">
+                <p id="message"></p>
+            </div>
+            <div class="form-body">
+                <div class="title text-center">
+                    <h3>Register</h3>
+                    <p>Enter the attendance code you recieved here and click <strong>Register attendance</strong></p>
+                </div>
+                <form method="PUT">
+                    <div class="form-group" id="attendance">
+                        <input type="password" class="form-control" id="attendanceCode" placeholder="Enter code" required>
+                    </div>
+                    <button type="submit" class="mt-3" id="register">Register attendance <i class="fa fa-spinner fa-spin" id="spinner"></i> </button>
+                </form>
+            </div>
+        </div>
+        <div class="notice">
+            <h4>Important:</h4>
+            <p>The code can only be used by one person, please do not share your code with anyone.</p>
+        </div>
+        <footer>
+            <div class="foot-note">
+                For complaints, send an email to techteam@viclawrence.com or call 01-4617223.
+            </div>
+            <p class="reg">© 2018 Vic Lawrence & Associates Limited</p>
+        </footer>
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+        <script type="text/javascript" src="/js/Functions.js"></script>
+        <script type="text/javascript" src="/js/dashboard.js"></script>
+    </body>
+</html>
