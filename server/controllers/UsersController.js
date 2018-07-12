@@ -11,6 +11,7 @@ const UsersController = {
         if (staffId && !phoneNumber) {
             if (!validStaffId.test(staffId)) {
                 return res.status(400).json({
+                    status: 'fail',
                     message: `'${staffId}' is not a valid staff ID`
                 });
             }
@@ -19,18 +20,19 @@ const UsersController = {
                 .then((staffData) => {
                     if (!staffData.rows[0]) {
                         return res.status(404).json({
+                            status: 'fail',
                             message: 'We are having a hard time recognising you. Please check that your staff ID is correct?'
                         });
                     }
 
-                    res.cookie('staff', staffData.rows[0].staffId, {
+                    res.cookie('staffId', staffData.rows[0].staffId, {
                         httpOnly: true,
                         maxAge: (1000 * 60 * 60 * 4)
                     });
 
                     return res.status(200).json({
-                        message: 'success',
-                        data: staffData.rows[0]
+                        status: 'success',
+                        message: 'Login successful!'
                     });
                 });
         }
@@ -39,60 +41,100 @@ const UsersController = {
         if (!staffId && phoneNumber) {
             if (!validPhoneNumber.test(phoneNumber)) {
                 return res.status(400).json({
+                    status: 'fail',
                     message: `${phoneNumber} is not a valid phone number`
                 });
             }
 
-            connectToPg.query(`SELECT * FROM "LagosStaff" WHERE "mobileNumber" = ${phoneNumber}`)
+            connectToPg.query(`SELECT * FROM "LagosStaff" WHERE "mobileNumber" LIKE '%${phoneNumber}%'`)
                 .then((staffData) => {
                     if (!staffData.rows[0]) {
                         return res.status(404).json({
+                            status: 'fail',
                             message: 'We are having a hard time recognising you. Please check that your phone number is correct?'
                         });
                     }
 
-                    res.cookie('staff', staffData.rows[0].staffId, {
+                    // Create cookie
+                    res.cookie('staffId', staffData.rows[0].staffId, {
                         httpOnly: true,
                         maxAge: (1000 * 60 * 60 * 4)
                     });
 
                     return res.status(200).json({
-                        message: 'success',
-                        data: staffData.rows[0]
+                        status: 'success',
+                        message: 'Login successful!'
                     });
                 });
         }
     },
     dashControl: (req, res) => {
-        const { staffId } = req.authData;
+        if (!req.cookies.staffId) {
+            return res.redirect('/login');
+        }
+
+        const { staffId } = req.cookies;
 
         connectToPg.query(`SELECT * FROM "LagosStaff" WHERE "staffId" = '${staffId}'`)
             .then(staffData => res.render('dashboard', staffData.rows[0]));
     },
     markAttendance: (req, res) => {
         const { attendanceCode } = req.body;
-        const { staffId } = req.authData;
+        const { staffId } = req.cookies;
 
-        connectToPg.query(
-            `SELECT "code" from "LagosStaff" WHERE "code" = '${attendanceCode}'`
+        return connectToPg.query(
+            `SELECT * from "LagosStaff" WHERE "code" = '${attendanceCode}'`
         )
             .then((codeData) => {
-                if (!codeData.rows[0]) {
-                    connectToPg.query(
-                        `UPDATE "LagosStaff" SET "code" = '${attendanceCode}', "status" = 'present'
-                        WHERE staffId = ${staffId}`
-                    )
-                        .then(() => res.status(200).json({
-                            status: 'success',
-                            message: 'Attendance code field is empty'
-                        }));
+                if (codeData.rows.length > 0) {
+                    return res.status(409).json({
+                        status: 'fail',
+                        message: 'This code has already been used.'
+                    });
                 }
 
-                return res.status(409).json({
-                    status: 'fail',
-                    message: 'This code has already been used.'
-                });
+                connectToPg.query(`SELECT "code" FROM "LagosStaff" WHERE "staffId" = '${staffId}'`)
+                    .then((staffData) => {
+                        if (staffData.rows[0].code !== null) {
+                            return res.status(405).json({
+                                status: 'fail',
+                                message: 'You have already registered your attendance'
+                            });
+                        }
+                        return connectToPg.query(
+                            `UPDATE "LagosStaff" SET "code" = '${attendanceCode}', "status" = 'present'
+                            WHERE "staffId" = '${staffId}' RETURNING *`
+                        )
+                            .then((regData) => {
+                                if (regData.rows[0].status === 'present') {
+                                    return res.status(200).json({
+                                        status: 'success',
+                                        message: 'Your attendance has been recorded'
+                                    });
+                                }
+                                return res.status(500).json({
+                                    status: 'error',
+                                    message: 'Your request could not be processed'
+                                });
+                            })
+                            .catch(() => res.status(500).json({
+                                status: 'error',
+                                message: 'Error processing attendance registration'
+                            }));
+                    })
+                    .catch(() => res.status(500).json({
+                        status: 'error',
+                        message: 'Database communication error'
+                    }));
             });
+    },
+    logout: (req, res) => {
+        // Create cookie
+        res.clearCookie('staffId');
+        return res.status(200).json({
+            status: 'success',
+            message: 'Logout successful'
+        });
     }
 };
 

@@ -2,16 +2,12 @@ import random from './random';
 
 const Protect = {
     checkInput: (req, res, next) => {
-        // redirect user if cookie isn't expired
-        if (req.headers.cookie) {
-            return res.redirect('/dashboard');
-        }
-
         const { staffId, phoneNumber } = req.body;
 
         // Check that no malicious act or error sends both information
         if (staffId && phoneNumber) {
             return res.status(400).json({
+                status: 'fail',
                 message: 'We are confused'
             });
         }
@@ -20,6 +16,7 @@ const Protect = {
         if (staffId && !phoneNumber) {
             if (staffId.trim().length === 0) {
                 return res.status(400).json({
+                    status: 'fail',
                     message: 'Staff ID field is empty'
                 });
             }
@@ -30,6 +27,7 @@ const Protect = {
         if (!staffId && phoneNumber) {
             if (phoneNumber.trim().length === 0) {
                 return res.status(400).json({
+                    status: 'fail',
                     message: 'Phone Number field is empty'
                 });
             }
@@ -38,26 +36,32 @@ const Protect = {
         }
 
         return res.status(400).json({
+            status: 'fail',
             message: 'Request not understood'
         });
     },
     verify: (req, res, next) => {
-        console.log(req.cookies);
         const { attendanceCode } = req.body;
 
         // if user is not logged, send to login page
-        if (!req.cookies.staff) {
+        if (!req.cookies.staffId) {
             return res.redirect('/login');
         }
 
         // checking for empty fields
         if (!attendanceCode || attendanceCode.trim() === 0) {
             return res.status(400).json({
+                status: 'fail',
                 message: 'Attendance code field is empty'
             });
         }
 
-        console.log(random.indexOf(attendanceCode));
+        if (!(random.indexOf(attendanceCode) >= 0)) {
+            return res.status(400).json({
+                status: 'fail',
+                message: 'Attendance code does not exist'
+            });
+        }
 
         return next();
     }

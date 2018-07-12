@@ -1,0 +1,31 @@
+.navbar-brand {
+    width: 80px;
+}
+.content-wrapper {
+    width: 400px;
+}
+
+.actionButtons {
+    padding: 20px;
+    width: 100%;
+    margin-bottom: 50px;
+}
+
+.actionButtons button {
+    display: block;
+    background-color: rgba(237,125,23,.8);
+}
+.actionButtons button:hover {
+    background-color: rgba(237,125,23,.6);
+}
+
+
+#staffIdLogin, #phoneNumberDiv {
+    display: none;
+}
+
+@media screen and (max-width: 500px) {
+    .content-wrapper {
+        width: 95%;
+    }
+}

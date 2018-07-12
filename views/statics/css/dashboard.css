@@ -1,0 +1,101 @@
+body {
+    background-color: rgb(245,245,245);
+}
+.navbar-custom {
+    background-color: white;
+    box-shadow: 1px 0 20px -1px rgba(0,0,0,.3);
+}
+.navbar-brand {
+    width: 80px;
+}
+.nav-link {
+    color: black !important;
+}
+.dash-content {
+    margin-top: 30px;
+    padding: 0 3%;
+}
+.staff-details {
+    margin-bottom: 50px;
+}
+.staff-details-item {
+    background-color: white;
+    padding: 10px;
+    margin: auto;
+    box-shadow: 1px 1px 4px -1px rgba(0,0,0,.4);
+}
+.staff-details-item span {
+    font-weight: bold;
+}
+.details-sub-head {
+    margin-right: 10px;
+    text-align: left;
+    opacity: .5;
+}
+#message {
+    width: 500px;
+    left: 50%;
+    transform: translate(-50%);
+}
+.form-body {
+    width: 400px;
+    margin: auto auto 50px;
+    box-shadow: 1px 1px 8px -1px rgba(0,0,0,.7);
+}
+.form-body h3 {
+    margin-bottom: 10px;
+}
+.form-body input:focus {
+    text-indent: 10px;
+    transition: all .4s ease-in-out;
+    -webkit-ransition: all .4s ease-in-out;
+    -o-transition: all .4s ease-in-out;
+    -moz-transition: all .4s ease-in-out;
+    -ms-transition: all .4s ease-in-out;
+}
+.form-body button {
+    font-weight: bold;
+}
+
+.notice {
+    background-color: white;
+    width: 60%;
+    margin: auto auto 50px;
+    font-size: 16px;
+    padding: 15px;
+    text-align: center;
+    color: rgb(120,10,0);
+    border-radius: 5px;
+    box-shadow: 1px 1px 4px -1px rgba(0,0,0,.4);
+}
+
+footer {
+    background-color: black;
+    padding: 5px;
+    text-align: center;
+    color: rgba(180,180,180,0.5);
+}
+footer .foot-note {
+    padding: 20px;
+}
+
+@media screen and (max-width: 600px) {
+    .notice, #message {
+        width: 80%;
+    }
+}
+
+@media screen and (max-width: 500px) {
+    .notice, .form-body, #message {
+        width: 95%;
+    }
+}
+
+@media screen and (max-width: 350px) {
+    .details-sub-head {
+        text-align: center;
+    }
+    .staff-details-item span {
+        display: block;
+    }
+}
