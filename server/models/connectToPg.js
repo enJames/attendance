@@ -7,7 +7,7 @@ let connectionString;
 let ssl;
 
 if (process.env.NODE_ENV === 'production') {
-    connectionString = process.env.DATABASE_URL;
+    connectionString = process.env.HEROKU_POSTGRESQL_AQUA_URL;
     ssl = true;
 } else {
     connectionString = process.env.DATABASE_URL_LOCAL;
