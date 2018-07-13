@@ -101,12 +101,36 @@ const UsersController = {
                                 message: 'You have already registered your attendance'
                             });
                         }
+
+                        // Check if it is an excuse code or presence code
+                        if (attendanceCode.length > 5) {
+                            return connectToPg.query(
+                                `UPDATE "LagosStaff" SET "code" = '${attendanceCode}', "status" = 'Excused'
+                                WHERE "staffId" = '${staffId}' RETURNING *`
+                            )
+                                .then((regData) => {
+                                    if (regData.rows[0].status === 'Excused') {
+                                        return res.status(200).json({
+                                            status: 'success',
+                                            message: 'Your excuse has been recorded'
+                                        });
+                                    }
+                                    return res.status(500).json({
+                                        status: 'error',
+                                        message: 'Your excuse request could not be processed'
+                                    });
+                                })
+                                .catch(() => res.status(500).json({
+                                    status: 'error',
+                                    message: 'Error processing Excuse request'
+                                }));
+                        }
                         return connectToPg.query(
-                            `UPDATE "LagosStaff" SET "code" = '${attendanceCode}', "status" = 'present'
+                            `UPDATE "LagosStaff" SET "code" = '${attendanceCode}', "status" = 'Present'
                             WHERE "staffId" = '${staffId}' RETURNING *`
                         )
                             .then((regData) => {
-                                if (regData.rows[0].status === 'present') {
+                                if (regData.rows[0].status === 'Present') {
                                     return res.status(200).json({
                                         status: 'success',
                                         message: 'Your attendance has been recorded'
