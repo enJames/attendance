@@ -32,10 +32,12 @@ body {
     text-align: left;
     opacity: .5;
 }
+.warning-div {
+    margin: auto auto 50px;
+}
 .warning {
     background-color: rgb(100,10,0);
     width: 90%;
-    margin: auto auto 50px;
     padding: 15px;
     text-align: center;
     box-sizing: border-box;
