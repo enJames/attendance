@@ -33,7 +33,7 @@ body {
     opacity: .5;
 }
 .warning-div {
-    margin: auto auto 100px;
+    margin: auto auto 80px;
 }
 .warning {
     background-color: rgb(100,10,0);
